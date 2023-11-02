@@ -17,7 +17,6 @@ Ohjelmalle annetaan äänitiedosto ja kohinanpoistotaso. Se palauttaa prosessoid
 ## Tavoitteena olevat aika- ja tilavaativuudet
 Tällä hetkellä minulla ei ole tarpeeksi hyvää kuvaa algoritmin toiminnasta,
 jotta pystyisin asettaa odotuksia aikavaativuudelle.
-Toivon, että ohjelman ei tarvitse käydä äänidataa enempää kuin O(2n) kertaa läpi.
 Tärkein tilavaatimus olisi, että prosessoitu tiedosto ei ainakaan kasva koossa.
 
 ## Kurssin hallinnallisia tietoja
