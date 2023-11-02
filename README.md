@@ -10,3 +10,5 @@ Tarkoituksena on toteuttaa työkalu, jolle voi antaa äänitiedostoja. Työkalu 
 ### [Toteutusdokumentti](https://github.com/VehvilainenPooki/AlgoritmitJaTekoaly/blob/main/Dokumentaatio/Toteutusdokumentti.md)
 
 ### [Testausdokumentti](https://github.com/VehvilainenPooki/AlgoritmitJaTekoaly/blob/main/Dokumentaatio/Testausdokumentti.md)
+
+### [Käyttöohje](https://github.com/VehvilainenPooki/AlgoritmitJaTekoaly/blob/main/Dokumentaatio/Käyttöohje.md)
