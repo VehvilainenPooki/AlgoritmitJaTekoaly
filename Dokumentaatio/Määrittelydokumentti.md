@@ -1,6 +1,7 @@
 # Määrittelydokumentti
 ## Ohjelmointikieli
 ### Python
+Koodin dokumentointi toteutetaan Python DocString:llä.
 #### Muita osaamiani ohjelmointikieliä:
 #### Java, JavaScript, html, C#
 ## Toteutettava algoritmi
@@ -9,7 +10,7 @@ Aihe ei ole itselleni tuttu, mutta ensimmäinen laajasti esillä oleva menetelm�
 https://vocal.com/noise-reduction/the-simple-theory-of-noise-reduction-wiener-filtering/
 
 ## Miksi Wiener Filtering
-Wiener filtering vaikuttaa olevan standardi toteutu taustaäänen poistamiseen.
+Wiener filtering vaikuttaa olevan standardi toteutus taustaäänen poistamiseen.
 
 ## Ohjelman syötteet ja tulokset
 Ohjelmalle annetaan äänitiedosto ja kohinanpoistotaso. Se palauttaa prosessoidun äänitiedoston, jossa on vähennetty taustakohinaa. 
