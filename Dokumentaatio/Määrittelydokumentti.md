@@ -1,24 +1,19 @@
 # Määrittelydokumentti
+
 ## Ohjelmointikieli
 ### Python
 Koodin dokumentointi toteutetaan Python DocString:llä.
 #### Muita osaamiani ohjelmointikieliä:
 #### Java, JavaScript, html, C#
-## Toteutettava algoritmi
-### Wiener Filtering
-Aihe ei ole itselleni tuttu, mutta ensimmäinen laajasti esillä oleva menetelmä, joka tuli itselle vastaan on "Wiener Filtering".
-https://vocal.com/noise-reduction/the-simple-theory-of-noise-reduction-wiener-filtering/
 
-## Miksi Wiener Filtering
-Wiener filtering vaikuttaa olevan standardi toteutus taustaäänen poistamiseen.
+## Toteutettava algoritmi
+### Cooley-Tukey FFT
+
+## Miksi Cooley-Tukey FFT
+Fast Fourier Transform(FFT) On tehokas menetelmä signaalinprosessointiin ja Cooley-Tukeyn algoritmi on yleisin FFT algoritmi.
 
 ## Ohjelman syötteet ja tulokset
 Ohjelmalle annetaan äänitiedosto ja kohinanpoistotaso. Se palauttaa prosessoidun äänitiedoston, jossa on vähennetty taustakohinaa. 
-
-## Tavoitteena olevat aika- ja tilavaativuudet
-Tällä hetkellä minulla ei ole tarpeeksi hyvää kuvaa algoritmin toiminnasta,
-jotta pystyisin asettaa odotuksia aikavaativuudelle.
-Tärkein tilavaatimus olisi, että prosessoitu tiedosto ei ainakaan kasva koossa.
 
 ## Kurssin hallinnallisia tietoja
 ### Opinto-ohjelma: Tietojenkäsittelytieteen kandidaatti (TKT)
