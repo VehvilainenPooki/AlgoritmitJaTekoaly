@@ -24,6 +24,20 @@ Toteutan Tkinter kirjastolla yksinkertaisen graafisen käyttöliittymän ja tutu
 ### Kuinka paljon käytin aikaa projektiin viikolla?
 Käytin noin 3h aikaa tällä viikolla projektiin
 
+## Viikkoraportti 2
+### Mitä olen tehnyt viikolla?
+
+### Miten projekti on edistynyt?
+
+### Mitä opin viikolla?
+
+### Mikä jäi epäselväksi tai tuottanut vaikeuksia?
+
+### Mitä teen seuraavaksi?
+
+### Kuinka paljon käytin aikaa projektiin viikolla?
+
+
 # Projektiin käytetty aika yhteensä
 ## 3h
 <!--
