@@ -26,20 +26,35 @@ Käytin noin 3h aikaa tällä viikolla projektiin
 
 ## Viikkoraportti 2
 ### Mitä olen tehnyt viikolla?
+Rakensin yksinkertaisen käyttöliittymän käyttäen Tkinter:iä.
 
+Tutustuin FFT algoritmiin erinäisin videoin ja artikkelein.
+
+Luin Cooley-Tukey algoritmiin tarkemmin Wikipedia-artikkelin pohjalta.
 ### Miten projekti on edistynyt?
-
+Yksinkertainen käyttöliittymä luotu
 ### Mitä opin viikolla?
+FFT Toiminnasta:
+FFT Toimii pienellä määrällä dataa verrattuna FT, joka vaatii jatkuvan signaalin. FFT löytää signaalista sini-aallot tutkimalla jaksottain signaalia. Toistuvaan aaltoon osuessaan fft antaa merkittävästi korkeamman arvon.
 
+FFT käyttötilanteista:
+- Äänen jakaminen perusosiin
+- Kuvien kompressointi
+- Ydinpommien räjähdysten tunnistaminen seismografin tulosteesta
+- laadun hallita laitteistot
+
+Tkinter:n käyttämisestä laajemmin [ohjetta](https://tkdocs.com/tutorial/index.html) seuraten.
 ### Mikä jäi epäselväksi tai tuottanut vaikeuksia?
-
+Tällä hetkellä on epäselvää se, miten tulen lukemaan äänitiedostot FFT:lle. En ole vielä tutustunut miltä .wav tiedostot näyttävät bittitasolla/miten saan niistä haluamani tiedon ulos.
 ### Mitä teen seuraavaksi?
-
+- Tutustun .wav tiedostojen lukemiseen
+- Toteutan Cooley-Tukeyn algoritmin
+- Tutustun lisää FFT algoritmin käyttöön
 ### Kuinka paljon käytin aikaa projektiin viikolla?
-
+8h
 
 # Projektiin käytetty aika yhteensä
-## 3h
+## 11h
 <!--
 ## Viikkoraportti pohja
 ### Mitä olen tehnyt viikolla?
