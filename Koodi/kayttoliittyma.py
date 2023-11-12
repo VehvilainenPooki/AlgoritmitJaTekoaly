@@ -4,6 +4,8 @@ from tkinter import filedialog
 
 from os import getcwd as cwd
 
+import re
+
 
 class kayttoliittyma:
     def __init__(self, ikkuna):
@@ -17,7 +19,9 @@ class kayttoliittyma:
     def _luo_taajuuden_poisto(self, ikkuna):
         ruutu = ttk.Frame(ikkuna)
         ruutu.grid(column=0, row=0, sticky=(N, W, E, S))
-        
+
+        check_num_wrapper = (ikkuna.register(self.check_num), '%P')
+
         ttk.Label(ruutu, text="Valitse tiedosto:").grid(column=1, row=1, sticky=E)
         self.tiedosto = StringVar()
         tiedosto_teksti = ttk.Label(ruutu, text="")
@@ -28,13 +32,13 @@ class kayttoliittyma:
 
         ttk.Label(ruutu, text="Poistettava taajuus:").grid(column=1, row=2, sticky=E)
         self.taajuus = StringVar()
-        taajuus_syote = ttk.Entry(ruutu, width=7, textvariable=self.taajuus)
+        taajuus_syote = ttk.Entry(ruutu, width=7, textvariable=self.taajuus, validate='key', validatecommand=check_num_wrapper)
         taajuus_syote.grid(column=2, row=2, sticky=(W, E))
         ttk.Label(ruutu, text="Hz").grid(column=3, row=2, sticky=W)
 
         ttk.Label(ruutu, text="Voimakkuuden vähennys:").grid(column=1, row=3, sticky=W)
         self.voimakkuus = StringVar()
-        voimakkuus_syote = ttk.Entry(ruutu, width=7, textvariable=self.voimakkuus)
+        voimakkuus_syote = ttk.Entry(ruutu, width=7, textvariable=self.voimakkuus, validate='key', validatecommand=check_num_wrapper)
         voimakkuus_syote.grid(column=2, row=3, sticky=(W, E))
         ttk.Label(ruutu, text="Db").grid(column=3, row=3, sticky=W)
 
@@ -45,6 +49,9 @@ class kayttoliittyma:
 
         tiedosto_syote.focus()
         ikkuna.bind("<Return>", self.prosessoi)
+
+    def check_num(self, newval):
+        return re.match('^[0-9]*$', newval) is not None and len(newval) <= 6
 
     def prosessoi(self):
         #Työn alla
