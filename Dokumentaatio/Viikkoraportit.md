@@ -46,6 +46,8 @@ FFT käyttötilanteista:
 Tkinter:n käyttämisestä laajemmin [ohjetta](https://tkdocs.com/tutorial/index.html) seuraten.
 ### Mikä jäi epäselväksi tai tuottanut vaikeuksia?
 Tällä hetkellä on epäselvää se, miten tulen lukemaan äänitiedostot FFT:lle. En ole vielä tutustunut miltä .wav tiedostot näyttävät bittitasolla/miten saan niistä haluamani tiedon ulos.
+
+Vaikuttaisi siltä, että scipy kirjastolla pystyy lukemaan wav tiedostoja. En kuitenkaan ole varma olisiko tämä sellainen asia, joka tulisi toteuttaa itse.
 ### Mitä teen seuraavaksi?
 - Tutustun .wav tiedostojen lukemiseen
 - Toteutan Cooley-Tukeyn algoritmin
