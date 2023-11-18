@@ -8,6 +8,11 @@ import re
 
 
 class kayttoliittyma:
+    '''
+    Käyttöliittymä
+
+    Toteuttaa kohinanpoistosovellukselle käyttöliittymän, jolla sitä käytetään.
+    '''
     def __init__(self, ikkuna):
         ikkuna.title("Kohinanpoistotyökalu")
         self._luo_aloitus_ruutu(ikkuna)
