@@ -6,12 +6,12 @@ import numpy as np
 import math
 
 
-def FFT(data):
+def _FFT(data):
     '''
     FFT : Fast Fourier Transform : Nopea Fourier-Muunnos
 
     Muuttujat:
-    data = Syöte taulukko
+    data = Syöte taulukko # Taulukon pituus tulee olla muotoa 2^n, jotta algoritmi toimii oikein
     
     Palauttaa Fourier-muunnetun data taulukon  
     '''
@@ -22,24 +22,17 @@ def FFT(data):
     if pituus == 1:
         return data
     else:
-
-        #Rekursio
-        parilliset = FFT(data[::2])
-        parittomat = FFT(data[1::2])
+        parilliset = _FFT(data[::2])
+        parittomat = _FFT(data[1::2])
 
         yksikkojuuret = np.exp(-2j*np.pi*np.arange(pituus)/ pituus)
         yksikkojuuretJaettu=np.array_split(yksikkojuuret, 2)
 
-        try:
-            muunnos = np.concatenate([parilliset+yksikkojuuretJaettu[0]*parittomat, parilliset+yksikkojuuretJaettu[1]*parittomat])
-        except ValueError as e:
-            print(len(yksikkojuuretJaettu[0]), ":", len(parittomat), ":", len(parilliset), ";", pituus)
-            print(data)
-            raise
+        muunnos = np.concatenate([parilliset+yksikkojuuretJaettu[0]*parittomat, parilliset+yksikkojuuretJaettu[1]*parittomat])
+        
         return muunnos
     
-
-def iFFT(data):
+def _iFFT(data):
     '''
     iFFT : inverse Fast Fourier Transform : käänteinen Nopea Fourier-Muunnos
 
@@ -55,81 +48,77 @@ def iFFT(data):
     if pituus == 1:
         return data
     else:
-
-        #Rekursio
-        parilliset = FFT(data[::2])
-        parittomat = FFT(data[1::2])
+        parilliset = _iFFT(data[::2])
+        parittomat = _iFFT(data[1::2])
 
         yksikkojuuret = np.exp(2j*np.pi*np.arange(pituus)/ pituus)
         yksikkojuuretJaettu=np.array_split(yksikkojuuret, 2)
 
-        try:
-            muunnos = np.concatenate([parilliset+yksikkojuuretJaettu[0]*parittomat, parilliset+yksikkojuuretJaettu[1]*parittomat])
-        except ValueError as e:
-            print(len(yksikkojuuretJaettu[0]), ":", len(parittomat), ":", len(parilliset), ";", pituus)
-            print(data)
-            raise
+        muunnos = np.concatenate([parilliset+yksikkojuuretJaettu[0]*parittomat, parilliset+yksikkojuuretJaettu[1]*parittomat])
+        
         return muunnos
 
-
-def scipy_fft(data):
-    return fft.fft(data)
-
-def scipy_ifft(data):
-    return fft.ifft(data)
-
-
-
-
-
-
-if __name__ == "__main__":
-    #
-    # Tämä on vasta testausversio ja ei sen vuoksi ole kirjoitettu mitenkään järkevästi kutsuttavaksi.
-    # Piti ensin saada fft toimimaan ja yrittää ymmärtää sitä hieman paremmin.
-
-
-    # Datan lukeminen
-    fs, data = wavfile.read('./Syotteet/Club_BigBassHits_136_Gm.wav')
-    #fs, data = wavfile.read('./Syotteet/atmosphere_forest_birds.wav')
-
-    # Tiedostossa on kaksi ääniraitaa, niin valitsin ensimmäisen
-    data = data.T[0] 
-
-    # Tarkistetaan, että data on muotoa pituus=n^2. Jos ei ole, lisätään dataan n^2-pituus nollaa.
+def _kasvata_data_sopivan_pituiseksi(data):
+    '''
+    Tarkistaa, että data on muotoa pituus=2^n. Jos ei ole, lisätään dataan 2^n-pituus nollaa.
+    '''
     pituus = len(data)
     log2pituus = np.log2(pituus)
     if not log2pituus.is_integer():
         pituusNormalisoitu = math.pow(2,math.ceil(log2pituus))
         data = np.append(data, [0 for i in range(int(pituusNormalisoitu-pituus))])
+    
+    return data
 
-        if len(data) != pituusNormalisoitu:
-            print(pituus, len(data), pituusNormalisoitu)
-            raise
+def _suorita_FFT_datalle(data, omaFFTtoteutus=True):
+    if omaFFTtoteutus:
+        muunnos = _FFT(data)
+    else:
+        muunnos = fft.fft(data)
 
-    #Tässä on oma algoritmini FFT ja scipy kirjaston huomattavasti nopeampi algoritmi fft, jota voi vertailla
-    muunnos = FFT(data) #Oma
-    #muunnos = fft(data) #scipy
+    return muunnos
 
-    #muunnos = iFFT(muunnos)
+def _suorita_iFFT_datalle(data, omaFFTtoteutus):
+    if omaFFTtoteutus:
+        muunnos = _FFT(data)
+    else:
+        muunnos = fft.fft(data)
 
-    # Piirretään kuvaaja (piirretään vain puolet, koska kuvaaja on symmetrinen)
-    kuvaajanPituus = int(len(muunnos))
-    #plt.plot(abs(muunnos[:(kuvaajanPituus-1)]),'r') 
+    return muunnos
 
-    otsikko, (kuvaaja1, kuvaaja2, kuvaaja3) = plt.subplots(3)
+def FFT_tiedostolle(tiedostonOsoite, omaFFTtoteutus=True):
+    '''
+    Lasketaan FFT annetusta tiedostosta.
+
+    muuttujat:
+    tiedostonOsoite = täysi tai relatiivinen osoite tiedostolle
+    omaFFTtoteutus = Käytetäänkö omaa vai Scipy kirjaston FFT toteutusta # Default : True
+
+    Palauttaa FFT muunnetun taulukon. Taulukko on kaksiulotteinen. Muotoa [[dataOtokset], [kanavat]]
+    '''
+    naytteenottotaajuus, data = wavfile.read(tiedostonOsoite)
+
+    data = data.T[0]
+
+    return _suorita_FFT_datalle(_kasvata_data_sopivan_pituiseksi(data))
+
+
+
+if __name__ == "__main__":
+    '''
+    FFT:n testausta ilman muun projektin osia.
+    '''
+
+
+    otsikko, (kuvaaja1, kuvaaja2) = plt.subplots(2)
     otsikko.suptitle('FFT vertailu')
-    kuvaaja1.plot(abs(muunnos[:(kuvaajanPituus-1)]),'r')
+    kuvaaja1.plot(FFT_tiedostolle('./Syotteet/Club_BigBassHits_136_Gm.wav'),'r')
 
+    kuvaaja2.plot(FFT_tiedostolle('./Syotteet/Club_BigBassHits_136_Gm.wav', False),'r')
 
-    muunnos = fft.fft(data) #scipy
+    #kuvaaja3.plot(data, 'r')
 
-    #muunnos = fft.ifft(muunnos)
-    kuvaajanPituus = int(len(muunnos))
-    kuvaaja2.plot(abs(muunnos[:(kuvaajanPituus-1)]),'r')
-
-    kuvaaja3.plot(data, 'r')
-
+    #wavfile.write("testi.wav", naytteenottotaajuus, muunnos.astype(np.int16))
 
     plt.show()
 
