@@ -72,8 +72,11 @@ def iFFT(data):
         return muunnos
 
 
+def scipy_fft(data):
+    return fft.fft(data)
 
-
+def scipy_ifft(data):
+    return fft.ifft(data)
 
 
 
