@@ -57,8 +57,13 @@ class taajuudenpoisto:
 
 class aloitusruutu:
 
-    def __init__(self, ikkuna):
-        1
+    def __init__(self, ikkuna=Tk):
+        ruutu = ttk.Frame(ikkuna)
+        ruutu.grid(column=0, row=0, sticky=(N, W, E, S))
+        ttk.Label(ruutu, text="Kohinanpoistotyökalu").grid(column=1, row=1, sticky=E)
+        ttk.Label(ruutu, text="Tähän tulee tekstiä.").grid(column=1, row=2, sticky=E)
+
+
 
 
 class valikko:
