@@ -62,6 +62,9 @@ Tutustunut lisää [FFT:n toteuttamiseen](https://www.csd.uwo.ca/~mmorenom/CS433
 
 
 ### Miten projekti on edistynyt?
+fft.py moduuli luotu, jossa fft algoritmi toteutettu.
+
+moduuli on tällä hetkellä kirjoitettu pelkästään oppimista ja testausta varten.
 
 ### Mitä opin viikolla?
 FFT on hyvin hankala käsittää, koska se hyödyntää kompleksilukuja ja yksikköjuuria. Youtube kanavan 3Blue1Brown [video](https://www.youtube.com/watch?v=spUNpyF58BY) aiheesta antoi intuitiivisen ymmärryksen algoritmin tuloksesta, mutta ei auta yhtään (ainakaan itseäni) algoritmin ymmärtämisessä. [Artikkeleiden](https://www.csd.uwo.ca/~mmorenom/CS433-CS9624/Resources/Implementing_FFTs_in_Practice.pdf) lukeminenkaan ei ole auttanut, koska tuntuu, että ne ovat taas hieman liian korkealla tasolla. Pseudokoodia ja yhtälöiden muuttujia ei avata ihan tarpeeksi.
@@ -89,8 +92,44 @@ Tutkin FFT:n käyttöä datan muokkaamisessa.
 14h
 
 
+## Viikkoraportti 4
+### Mitä olen tehnyt viikolla?
+refaktoroinut fft.py kutsuttavaan muotoon.
+
+Lisännyt kayttoliittyma.py moduuliin valikko, josta pääsee navigoimaan tuleviin välilehtiin.
+
+Tutkinut fft:n avulla äänen filtteröintiä.
+
+Sain testatessa tuotettua ensimmäisen wav tiedoston prosessoidusta datasta. Se kuulosti hieman hassulle, koska käytin kaksi kanavaista lähdettä, josta prosessoin vain toisen.
+
+
+### Miten projekti on edistynyt?
+- fft.py refaktoroitu kutsuttavaan muotoon versio 1.
+- kayttoliittymä.py lisätty valikko
+
+### Mitä opin viikolla?
+fft:n käänteisalgoritmi ifft:n totettaminen on hyvin helppoa, jos fft on toteutettu, koska aino, joka muuttuu algoritmissa on yksikköjuuret. Yksikköjuuret muuttuvat muotoon 1/yksikköjuuri.
+
+Tkinter ikkunoidenhallintaa. Yrittäessäni luoda käyttöliittymään valikkoa tuli ongelma, jossa valikko avautui uuteen ikkunaan. On tärkeää, että kutsuu samaa Tk objektia tai muuten syntyy lisää ikkunoita.
+
+### Mikä jäi epäselväksi tai tuottanut vaikeuksia?
+Tällä hetkellä fft.py prosessoi vain ensimmäisen äänikanavan tiedostoista. Aloin toteuttamaan usean kanavan prosessointia, mutta se meni monimutkaiseksi ja päätin jättää sen myöhemmäksi. Sain jaettua äänikanavat, mutta en ihan ymmärtänyt vielä miten ne tulisi liittää takaisin yhteen wav tiedostoon.
+
+### Mitä teen seuraavaksi?
+- Toteutan käyttöliittymän välilehdet ja yhdistän ne valikkoon.
+- Yhdistän visualisointi välilehdelle fft.py kuvaajien piirtämistä
+- Toteutan äänenfiltteröinnin taajuuden mukaan.
+
+- Laaja Dokumentaation läpikäynti ja uusinta
+
+- Testauksen kirjottaminen fft.py
+
+### Kuinka paljon käytin aikaa projektiin viikolla?
+20h hidasta työaikaa
+
+
 # Projektiin käytetty aika yhteensä
-## 25h
+## 45h
 <!--
 ## Viikkoraportti pohja
 ### Mitä olen tehnyt viikolla?
