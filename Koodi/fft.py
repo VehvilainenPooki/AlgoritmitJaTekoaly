@@ -96,7 +96,7 @@ def FFT_tiedostolle(tiedostonOsoite, omaFFTtoteutus=True):
 
     Palauttaa FFT muunnetun taulukon. Taulukko on kaksiulotteinen. Muotoa [[dataOtokset], [kanavat]]
     '''
-    naytteenottotaajuus, data = wavfile.read(tiedostonOsoite)
+    naytteenottoTaajuus, data = wavfile.read(tiedostonOsoite)
 
     data = data.T[0]
 
@@ -109,16 +109,18 @@ if __name__ == "__main__":
     FFT:n testausta ilman muun projektin osia.
     '''
 
+    #Testitiedostoja
+    tiedosto = './Syotteet/Club_BigBassHits_136_Gm.wav'
+    #tiedosto = './Syotteet/atmosphere_forest_birds.wav'
 
-    otsikko, (kuvaaja1, kuvaaja2) = plt.subplots(2)
+    otsikko, (kuvaaja1, kuvaaja2, kuvaaja3) = plt.subplots(3)
     otsikko.suptitle('FFT vertailu')
-    kuvaaja1.plot(FFT_tiedostolle('./Syotteet/Club_BigBassHits_136_Gm.wav'),'r')
+    kuvaaja1.plot(FFT_tiedostolle(tiedosto, True),'r')
 
-    kuvaaja2.plot(FFT_tiedostolle('./Syotteet/Club_BigBassHits_136_Gm.wav', False),'r')
+    kuvaaja2.plot(FFT_tiedostolle(tiedosto, False),'r')
 
-    #kuvaaja3.plot(data, 'r')
-
-    #wavfile.write("testi.wav", naytteenottotaajuus, muunnos.astype(np.int16))
+    turha, data = wavfile.read(tiedosto)
+    kuvaaja3.plot(data.T[0], 'r')
 
     plt.show()
 
