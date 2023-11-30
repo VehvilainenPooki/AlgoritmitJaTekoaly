@@ -110,8 +110,10 @@ if __name__ == "__main__":
     '''
 
     #Testitiedostoja
-    tiedosto = './Syotteet/Club_BigBassHits_136_Gm.wav'
-    #tiedosto = './Syotteet/atmosphere_forest_birds.wav'
+    #tiedosto = './Syotteet/Testi1IlmanSini.wav'
+    #tiedosto = './Syotteet/Testi1SiniAallolla.wav'
+    #tiedosto = './Syotteet/Testi2Siniaaltoja.wav'
+    tiedosto = './Syotteet/Testi3Siniaaltoja2.wav'
 
     otsikko, (kuvaaja1, kuvaaja2, kuvaaja3) = plt.subplots(3)
     otsikko.suptitle('FFT vertailu')
