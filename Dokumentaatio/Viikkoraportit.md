@@ -7,6 +7,8 @@ Dokumentissa on projektin viikkoraportit, jotka sisältää:
 - Mitä teen seuraavaksi?
 - Kuinka paljon käytin aikaa projektiin viikolla?
 
+
+
 ## Viikkoraportti 1
 ### Mitä olen tehnyt viikolla?
 Valitsin aiheeksi signaalinprosessoinnin ja kohinanpoiston. Ohjaajan kanssa tarkensimme projektin aiheen FFT(Fast Fourier Tranform) algoritmin käyttämiseen ja soveltamiseen.
@@ -23,6 +25,8 @@ Suuri osa materiaalista kohdistuu valmiisiin kirjastoihin, jotka tekevät työn 
 Toteutan Tkinter kirjastolla yksinkertaisen graafisen käyttöliittymän ja tutustun FFT:hen enemmän. Toteutan FFT algoritmin. 
 ### Kuinka paljon käytin aikaa projektiin viikolla?
 Käytin noin 3h aikaa tällä viikolla projektiin
+
+
 
 ## Viikkoraportti 2
 ### Mitä olen tehnyt viikolla?
@@ -54,6 +58,7 @@ Vaikuttaisi siltä, että scipy kirjastolla pystyy lukemaan wav tiedostoja. En k
 - Tutustun lisää FFT algoritmin käyttöön
 ### Kuinka paljon käytin aikaa projektiin viikolla?
 8h
+
 
 
 ## Viikkoraportti 3
@@ -92,6 +97,7 @@ Tutkin FFT:n käyttöä datan muokkaamisessa.
 14h
 
 
+
 ## Viikkoraportti 4
 ### Mitä olen tehnyt viikolla?
 refaktoroinut fft.py kutsuttavaan muotoon.
@@ -101,7 +107,6 @@ Lisännyt kayttoliittyma.py moduuliin valikko, josta pääsee navigoimaan tulevi
 Tutkinut fft:n avulla äänen filtteröintiä.
 
 Sain testatessa tuotettua ensimmäisen wav tiedoston prosessoidusta datasta. Se kuulosti hieman hassulle, koska käytin kaksi kanavaista lähdettä, josta prosessoin vain toisen.
-
 
 ### Miten projekti on edistynyt?
 - fft.py refaktoroitu kutsuttavaan muotoon versio 1.
@@ -128,8 +133,47 @@ Tällä hetkellä fft.py prosessoi vain ensimmäisen äänikanavan tiedostoista.
 20h hidasta työaikaa
 
 
+
+## Viikkoraportti 5
+### Mitä olen tehnyt viikolla?
+- Luotu uusia testi-tiedostoja, joita on helpompi tulkita fft muodossa.
+- Valikko toimii nyt. (Kaikkia valikon ruutuja ei ole vielä lisätty.)
+- Vaihdoin fft.py nimen aanenprosessointi.py, koska halusin, että nimi kuvaisi paremmin tulevaa moduulin toimintaa.
+- Vahvimman signaalin havaitseminen ja poistaminen on nyt implementoitu.
+- aanenprosessointi.py yksittäin suorittaessa saa luotua prosessoidun äänitiedoston, josta voi havaita signaalinpoiston.
+
+### Miten projekti on edistynyt?
+- kayttoliittyma.py valikko toimii nyt ja voi siirtyä ruudulta toiselle.
+- Vahvimman signaalin havaitsemis- ja poistamisfunktio on luotu.
+
+### Mitä opin viikolla?
+Projektin edetessä tuntuu, että kehitys hidastuu, kun integraation taso kasvaa. Olin varma, että saisin tällä viikolla jo implementoitua äänenprosessoinnin käyttöliittymään, mutta se ei tapahtunut.
+
+Projektin jakaminen ajatuksella moduuleihin, luokkiin ja funktioihin auttaa todella paljon projektin jatkokehityksessä. kayttoliittyma.py jakaminen luokkiin teki siitä paljon selvemmän ja miellyttävämmän näköisen ja jatkossa siihen on paljon helpompi palata.
+
+Tkinter koodi tuntuu paisuvan nopeasti aika monimutkaiseksi, joten sen organisointi oli erityisen tärkeää.
+
+Opin Tk toplevel ikkunoista, kun käyttämäni [tk-ohje](https://tkdocs.com/tutorial/index.html) käytti sitä selittämättä sitä kunnolla. Omassa koodissa toplevel() komento aiheutti ongelmia ja loi ylimääräisen ikkunan. Lopulta selvisikin, että toplevel() luo uuden toplevel ikkunan, jota omassa tilanteessani en halunnut.
+
+
+
+### Mikä jäi epäselväksi tai tuottanut vaikeuksia?
+voimakkaimman signaalin ja sen poisto oli hieman hankala implementoida, koska siitä ei tunnu löytyvän hyvää materiaalia. Lopulta sain sen toimimaan. mutta en vieläkään ole aivan varma toimiiko se ihan oikein. Jos vahvimman signaalin suorittaa Testi3Siniaaltoja2.wav tiedostolle, niin se näyttää siltä, että se antaisi väärän tuloksen. Luulen kuitenkin, että tämä johtuu siitä, että kuvaan vain aidon osa datasta ja jätän imaginääridatan huomiotta, mutta vahvimman signaalin valitsiessani otan koko datan huomioon.
+
+### Mitä teen seuraavaksi?
+Viime viikolta jäi paljon tekemättä, joten jatkan niistä:
+
+- Yhdistän visualisointi välilehdelle aanenprosessointi.py kuvaajien piirtämistä
+
+- Laaja Dokumentaation läpikäynti ja uusinta
+
+- Testauksen kirjottaminen aanenprosessointi.py
+
+### Kuinka paljon käytin aikaa projektiin viikolla?
+10h
+
 # Projektiin käytetty aika yhteensä
-## 45h
+## 55h
 <!--
 ## Viikkoraportti pohja
 ### Mitä olen tehnyt viikolla?
