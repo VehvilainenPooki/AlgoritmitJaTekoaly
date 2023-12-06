@@ -40,7 +40,21 @@ class kuvaajaruutu:
             self.ruutu, width=7, variable=self.suoritetaanko_ifft)
         suoritetaanko_ifft_syote.grid(column=2, row=3, sticky=(W, E))
 
-        ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=3, row=4, sticky=W)
+        self.algoritmiToteutus = IntVar(value=1)
+        ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(column=1, row=4, sticky=E)
+        radio0 = ttk.Radiobutton(self.ruutu, text="oma",
+                                variable=self.algoritmiToteutus,
+                                value=0
+                                )
+        radio0.grid(column=2, row=4, sticky=W)
+        radio1 = ttk.Radiobutton(self.ruutu, text="SciPy.IO",
+                                variable=self.algoritmiToteutus,
+                                value=1
+                                )
+        radio1.grid(column=3, row=4, sticky=W)
+        radio1.invoke()
+
+        ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=3, row=5, sticky=W)
 
         kuvaaja = Figure(figsize = (10, 3), dpi = 100)
         self.taulu = kuvaaja.add_subplot(111) 
