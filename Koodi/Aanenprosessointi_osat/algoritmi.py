@@ -65,8 +65,8 @@ def suorita_FFT_datalle(data, omaFFTtoteutus=True):
 
 def suorita_iFFT_datalle(data, omaFFTtoteutus=True):
     if omaFFTtoteutus:
-        muunnos = _FFT(data)
+        muunnos = _iFFT(data)
     else:
-        muunnos = fft.fft(data)
+        muunnos = fft.ifft(data)
 
     return muunnos
