@@ -57,7 +57,57 @@ class kuvaajaruutu:
         ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=3, row=5, sticky=W)
 
         kuvaaja = Figure(figsize = (10, 3), dpi = 100)
-        self.taulu = kuvaaja.add_subplot(111) 
+class vertailuruutu:
+    def __init__(self, ikkuna=Tk):
+        self.ruutu = ttk.Frame(ikkuna)
+        self.ruutu.grid(column=0, row=0, sticky=(N, W, E, S))
+
+        ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=1, row=1, sticky=E)
+        self.tiedosto1 = StringVar()
+        tiedosto_teksti1 = ttk.Label(self.ruutu, text="")
+        tiedosto_teksti1.grid(column=3, row=1, sticky=E)
+        tiedosto_syote1 = ttk.Button(self.ruutu, text="Selaa:", command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto1, teksti=tiedosto_teksti1))
+        tiedosto_syote1.grid(column=2, row=1, sticky=(W, E))
+        
+
+        ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=1, row=2, sticky=E)
+        self.suoritetaanko_fft1 = IntVar(value=0)
+        suoritetaanko_fft_syote1 = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaanko_fft1)
+        suoritetaanko_fft_syote1.grid(column=2, row=2, sticky=(W, E))
+
+        ttk.Label(self.ruutu, text="Suoritetaan ifft").grid(column=1, row=3, sticky=E)
+        self.suoritetaanko_ifft1 = IntVar(value=0)
+        suoritetaanko_ifft_syote1 = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaanko_ifft1)
+        suoritetaanko_ifft_syote1.grid(column=2, row=3, sticky=(W, E))
+
+        #------------------
+        ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=6, row=1, sticky=E)
+        self.tiedosto2 = StringVar()
+        tiedosto_teksti2 = ttk.Label(self.ruutu, text="")
+        tiedosto_teksti2.grid(column=8, row=1, sticky=E)
+        tiedosto_syote2 = ttk.Button(self.ruutu, text="Selaa:", command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto2, teksti=tiedosto_teksti2))
+        tiedosto_syote2.grid(column=7, row=1, sticky=(W, E))
+        
+
+        ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=6, row=2, sticky=E)
+        self.suoritetaanko_fft2 = IntVar(value=0)
+        suoritetaanko_fft_syote2 = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaanko_fft2)
+        suoritetaanko_fft_syote2.grid(column=7, row=2, sticky=(W, E))
+
+        ttk.Label(self.ruutu, text="Suoritetaan ifft").grid(column=6, row=3, sticky=E)
+        self.suoritetaanko_ifft2 = IntVar(value=0)
+        suoritetaanko_ifft_syote2 = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaanko_ifft2)
+        suoritetaanko_ifft_syote2.grid(column=7, row=3, sticky=(W, E))
+        #------------------
+
+        ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=7, row=4, sticky=W)
+
+        kuvaaja = Figure(figsize = (10, 3), dpi = 100)
+        self.taulu = kuvaaja.add_subplot() 
         
         self.kuvaajaTk = FigureCanvasTkAgg(figure=kuvaaja, master=self.ruutu)
         self.kuvaajaTk.draw()
@@ -81,7 +131,7 @@ class kuvaajaruutu:
         teksti.config(text=tiedosto)
 
     def prosessoi(self):
-        fftdata = aanenprosessointi.FFT_tiedostolle(self.tiedosto.get(), False)
+        fftdata = aanenprosessointi.FFT_tiedostolle(self.tiedosto1.get(), False)
         self.taulu.clear()
         self.taulu.plot(fftdata,'r')
 
