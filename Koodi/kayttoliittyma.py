@@ -46,6 +46,7 @@ class kayttoliittyma:
         ikkuna.title("Kohinanpoistotyökalu")
         self.taajuuden_poisto = suodatus.taajuudenpoisto(ikkuna)
         self.kuvaaja_ruutu = visualisointi.kuvaajaruutu(ikkuna)
+        self.vertailu_ruutu = visualisointi.vertailuruutu(ikkuna)
         self.aloitus_ruutu = aloitus.aloitusruutu(ikkuna)
         self.valikko = valikko(self, ikkuna)
 
@@ -59,7 +60,7 @@ class kayttoliittyma:
         elif vaihdettavan_nimi == 'kuvaaja':
             self.kuvaaja_ruutu.vaihda_ruutuun()
         elif vaihdettavan_nimi == 'vertaile toteutuksia':
-            1
+            self.vertailu_ruutu.vaihda_ruutuun()
         else:
             self.aloitus_ruutu.vaihda_ruutuun()
     
