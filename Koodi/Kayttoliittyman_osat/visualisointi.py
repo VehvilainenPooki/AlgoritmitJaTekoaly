@@ -57,6 +57,51 @@ class kuvaajaruutu:
         ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=3, row=5, sticky=W)
 
         kuvaaja = Figure(figsize = (10, 3), dpi = 100)
+        self.taulu = kuvaaja.add_subplot() 
+        
+        self.kuvaajaTk = FigureCanvasTkAgg(figure=kuvaaja, master=self.ruutu)
+        self.kuvaajaTk.draw()
+        toolbar = NavigationToolbar2Tk(self.kuvaajaTk, self.ruutu, pack_toolbar=False)
+        toolbar.update()
+        self.kuvaajaTk.get_tk_widget().grid(column=0, row=6, columnspan=30, sticky=S)
+        toolbar.grid(column=0, row=7, columnspan=30, sticky=N)
+
+        for lapsi in self.ruutu.winfo_children(): 
+            lapsi.grid_configure(padx=5, pady=5)
+
+
+    def valitse_tiedosto(self, sijainti, teksti):
+        dir = cwd() + "/Syotteet/"
+        tiedosto = filedialog.askopenfilename(initialdir=dir, filetypes=[('Audio',['*.wav', '*.mp3'])])
+        sijainti.set(tiedosto)
+        i = tiedosto.rfind("/")
+        if i != -1:
+            tiedosto = tiedosto[i+1: ]
+
+        teksti.config(text=tiedosto)
+
+    def prosessoi(self):
+        if self.algoritmiToteutus.get() == 0:
+            omaToteutus = True
+        else:
+            omaToteutus = False
+        data = aanenprosessointi.tiedostonlukeminen.lue_wav_tiedosto(self.tiedosto.get())
+        data = data[1]
+        if self.suoritetaanko_fft.get() == 1:
+            data = aanenprosessointi.algoritmi.suorita_FFT_datalle(data, omaToteutus)
+
+        if self.suoritetaanko_ifft.get() == 1:
+            data = aanenprosessointi.algoritmi.suorita_iFFT_datalle(data, omaToteutus)
+
+        self.taulu.clear()
+        self.taulu.plot(data,'r')
+        self.kuvaajaTk.draw()
+        print('prosessoitu')
+        
+    
+    def vaihda_ruutuun(self):
+        self.ruutu.tkraise()
+
 class vertailuruutu:
     def __init__(self, ikkuna=Tk):
         self.ruutu = ttk.Frame(ikkuna)
