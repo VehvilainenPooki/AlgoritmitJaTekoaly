@@ -45,6 +45,7 @@ class kayttoliittyma:
     def __init__(self, ikkuna):
         ikkuna.title("Kohinanpoistotyökalu")
         self.taajuuden_poisto = suodatus.taajuudenpoisto(ikkuna)
+        self.voimakkaimman_poisto = suodatus.voimakkaimmanpoisto(ikkuna)
         self.kuvaaja_ruutu = visualisointi.kuvaajaruutu(ikkuna)
         self.vertailu_ruutu = visualisointi.vertailuruutu(ikkuna)
         self.aloitus_ruutu = aloitus.aloitusruutu(ikkuna)
@@ -56,7 +57,7 @@ class kayttoliittyma:
         elif vaihdettavan_nimi == 'valitse taajuus':
             self.taajuuden_poisto.vaihda_ruutuun()
         elif vaihdettavan_nimi == 'voimakkain taajuus':
-            1
+            self.voimakkaimman_poisto.vaihda_ruutuun()
         elif vaihdettavan_nimi == 'kuvaaja':
             self.kuvaaja_ruutu.vaihda_ruutuun()
         elif vaihdettavan_nimi == 'vertaile':
