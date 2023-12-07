@@ -41,7 +41,7 @@ def poista_signaali(fftData=np.array, poistoKohta=int, poistoLeveys=int):
 
     Palauttaa muunnetun fftData taulukon
     '''
-    datanPituus = len(fftData)
+    datanPituus = len(fftData)-1
     for i in range(poistoLeveys*2+1):
         kohta = poistoKohta+i-poistoLeveys
         if datanPituus/2 > kohta and -1 < kohta:
