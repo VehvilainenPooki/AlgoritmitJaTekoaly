@@ -33,8 +33,8 @@ class valikko:
             label='kuvaaja', 
             command = lambda : self.rajapinta.vaihda_ruutua('kuvaaja'))
         self.visualisointi_valikko.add_command(
-            label='vertaile toteutuksia', 
-            command = lambda : self.rajapinta.vaihda_ruutua('vertaile toteutuksia'))
+            label='vertaile', 
+            command = lambda : self.rajapinta.vaihda_ruutua('vertaile'))
 
 class kayttoliittyma:
     '''
@@ -59,7 +59,7 @@ class kayttoliittyma:
             1
         elif vaihdettavan_nimi == 'kuvaaja':
             self.kuvaaja_ruutu.vaihda_ruutuun()
-        elif vaihdettavan_nimi == 'vertaile toteutuksia':
+        elif vaihdettavan_nimi == 'vertaile':
             self.vertailu_ruutu.vaihda_ruutuun()
         else:
             self.aloitus_ruutu.vaihda_ruutuun()
