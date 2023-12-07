@@ -212,12 +212,38 @@ class vertailuruutu:
         teksti.config(text=tiedosto)
 
     def prosessoi(self):
-        fftdata = aanenprosessointi.FFT_tiedostolle(self.tiedosto1.get(), False)
+        print("Aloitetaan prosessointi")
+        if self.algoritmiToteutus1.get() == 0:
+            omaToteutus1 = True
+        else:
+            omaToteutus1 = False
+        
+        if self.algoritmiToteutus2.get() == 0:
+            omaToteutus2 = True
+        else:
+            omaToteutus2 = False
+
+        data1 = aanenprosessointi.tiedostonlukeminen.lue_wav_tiedosto(self.tiedosto1.get())
+        data1 = data1[1]
+        data2 = aanenprosessointi.tiedostonlukeminen.lue_wav_tiedosto(self.tiedosto2.get())
+        data2 = data2[1]
+
+        if self.suoritetaanko_fft.get() == 1:
+            data1 = aanenprosessointi.algoritmi.suorita_FFT_datalle(data1, omaToteutus1)
+            data2 = aanenprosessointi.algoritmi.suorita_FFT_datalle(data2, omaToteutus2)
+            print("fft prosessointu")
+
+
+        if self.suoritetaanko_ifft.get() == 1:
+            data1 = aanenprosessointi.algoritmi.suorita_iFFT_datalle(data1, omaToteutus1)
+            data2 = aanenprosessointi.algoritmi.suorita_iFFT_datalle(data2, omaToteutus2)
+            print("ifft prosessointu")
         self.taulu.clear()
-        self.taulu.plot(fftdata,'r')
+        self.taulu.plot(data1,'r', alpha=0.5)
+        self.taulu.plot(data2,'b', alpha=0.5)
 
         self.kuvaajaTk.draw()
-        print('prosessoitu')
+        print('Valmis')
         
     
     def vaihda_ruutuun(self):
