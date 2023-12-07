@@ -172,6 +172,37 @@ Viime viikolta jäi paljon tekemättä, joten jatkan niistä:
 ### Kuinka paljon käytin aikaa projektiin viikolla?
 10h
 
+## Viikkoraportti 6
+### Mitä olen tehnyt viikolla?
+- Viimeistelty käyttöliittymää
+- Korjattu vika ifft toteutuksesta.
+- 
+
+### Miten projekti on edistynyt?
+Kaikki käyttöliittymän välilehdet ovat valmiit
+- visualisointi
+ - kuvaaja
+ - vertailu
+- suodatus
+ - voimakkain taajuus
+ - valitse taajuus
+- aloitus
+
+
+Korjasin ifft toteutuksen.
+
+### Mitä opin viikolla?
+ifft vaattii jonkun näköisen skaalauksen. Huomasin, että ifft toteutukseni antaa merkittävästi liian suuria arvoja, kun vertailin toteutuksia vierekkäin. Selvisi, että ifft oli tähän mennessä aina palauttanut taulun, jossa jokainen arvo on taulukon pituuden verran kerrottuna liian suuri. Eli arvo*taulukonPituus. Löysin aiheesta [stackoverflow:ssa](https://stackoverflow.com/questions/48572647/recursive-inverse-fft), joka auttoi ratkaisemaan ongelmani.
+
+Ilmeisesti fft ja ifft skaalaavat dataa taulun pituuden suhteen, joten data pitää skaalata takaisin oikean kokoiseksi, kun sen haluaa muuttaa wav muotoon. Skaalauksen voisi toteuttaa siististi kertomalla fft ja ifft 1/sqrt(taulunpituus), mutta tämä aiheuttaa ylimääräisiä välivaiheita, joten skaalaus yleensä toteuttaan vain ifft:n päässä. Tästä ei aiheudu ongelmia, koska fft:ssä on tärkeää arvojen relatiivinen koko.
+
+
+### Mikä jäi epäselväksi tai tuottanut vaikeuksia?
+
+### Mitä teen seuraavaksi?
+
+### Kuinka paljon käytin aikaa projektiin viikolla?
+
 # Projektiin käytetty aika yhteensä
 ## 55h
 <!--
