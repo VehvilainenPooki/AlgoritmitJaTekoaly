@@ -107,14 +107,17 @@ class vertailuruutu:
         self.ruutu = ttk.Frame(ikkuna)
         self.ruutu.grid(column=0, row=0, sticky=(N, W, E, S))
 
+        #------------------tiedosto1 valinta
         ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=1, row=1, sticky=E)
         self.tiedosto1 = StringVar()
         tiedosto_teksti1 = ttk.Label(self.ruutu, text="")
         tiedosto_teksti1.grid(column=3, row=1, sticky=E)
-        tiedosto_syote1 = ttk.Button(self.ruutu, text="Selaa:", command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto1, teksti=tiedosto_teksti1))
+        tiedosto_syote1 = ttk.Button(
+            self.ruutu,
+            text="Selaa:",
+            command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto1, teksti=tiedosto_teksti1))
         tiedosto_syote1.grid(column=2, row=1, sticky=(W, E))
         
-
         ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=1, row=2, sticky=E)
         self.suoritetaanko_fft1 = IntVar(value=0)
         suoritetaanko_fft_syote1 = ttk.Checkbutton(
@@ -127,15 +130,32 @@ class vertailuruutu:
             self.ruutu, width=7, variable=self.suoritetaanko_ifft1)
         suoritetaanko_ifft_syote1.grid(column=2, row=3, sticky=(W, E))
 
+        self.algoritmiToteutus1 = IntVar(value=1)
+        ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(column=1, row=4, sticky=E)
+        radio10 = ttk.Radiobutton(self.ruutu, text="oma",
+                                variable=self.algoritmiToteutus1,
+                                value=0
+                                )
+        radio10.grid(column=2, row=4, sticky=W)
+        radio11 = ttk.Radiobutton(self.ruutu, text="SciPy.IO",
+                                variable=self.algoritmiToteutus1,
+                                value=1
+                                )
+        radio11.grid(column=3, row=4, sticky=W)
+        radio11.invoke()
         #------------------
+
+        #------------------tiedosto2 valinta
         ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=6, row=1, sticky=E)
         self.tiedosto2 = StringVar()
         tiedosto_teksti2 = ttk.Label(self.ruutu, text="")
         tiedosto_teksti2.grid(column=8, row=1, sticky=E)
-        tiedosto_syote2 = ttk.Button(self.ruutu, text="Selaa:", command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto2, teksti=tiedosto_teksti2))
+        tiedosto_syote2 = ttk.Button(
+            self.ruutu,
+            text="Selaa:",
+            command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto2, teksti=tiedosto_teksti2))
         tiedosto_syote2.grid(column=7, row=1, sticky=(W, E))
         
-
         ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=6, row=2, sticky=E)
         self.suoritetaanko_fft2 = IntVar(value=0)
         suoritetaanko_fft_syote2 = ttk.Checkbutton(
@@ -147,10 +167,25 @@ class vertailuruutu:
         suoritetaanko_ifft_syote2 = ttk.Checkbutton(
             self.ruutu, width=7, variable=self.suoritetaanko_ifft2)
         suoritetaanko_ifft_syote2.grid(column=7, row=3, sticky=(W, E))
+
+        self.algoritmiToteutus2 = IntVar(value=1)
+        ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(column=6, row=4, sticky=E)
+        radio20 = ttk.Radiobutton(self.ruutu, text="oma",
+                                variable=self.algoritmiToteutus2,
+                                value=0
+                                )
+        radio20.grid(column=7, row=4, sticky=W)
+        radio21 = ttk.Radiobutton(self.ruutu, text="SciPy.IO",
+                                variable=self.algoritmiToteutus2,
+                                value=1
+                                )
+        radio21.grid(column=8, row=4, sticky=W)
+        radio21.invoke()
         #------------------
 
-        ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=7, row=4, sticky=W)
+        ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=7, row=5, sticky=W)
 
+        #------------------kuvaajan piirtäminen
         kuvaaja = Figure(figsize = (10, 3), dpi = 100)
         self.taulu = kuvaaja.add_subplot() 
         
@@ -158,8 +193,9 @@ class vertailuruutu:
         self.kuvaajaTk.draw()
         toolbar = NavigationToolbar2Tk(self.kuvaajaTk, self.ruutu, pack_toolbar=False)
         toolbar.update()
-        self.kuvaajaTk.get_tk_widget().grid(column=0, row=5, columnspan=30, sticky=S)
-        toolbar.grid(column=0, row=6, columnspan=30, sticky=N)
+        self.kuvaajaTk.get_tk_widget().grid(column=0, row=6, columnspan=30, sticky=S)
+        toolbar.grid(column=0, row=7, columnspan=30, sticky=N)
+        #------------------
 
         for lapsi in self.ruutu.winfo_children(): 
             lapsi.grid_configure(padx=5, pady=5)
