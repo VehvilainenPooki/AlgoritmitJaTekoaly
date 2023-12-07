@@ -118,30 +118,30 @@ class vertailuruutu:
             command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto1, teksti=tiedosto_teksti1))
         tiedosto_syote1.grid(column=2, row=1, sticky=(W, E))
         
-        ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=1, row=2, sticky=E)
-        self.suoritetaanko_fft1 = IntVar(value=0)
-        suoritetaanko_fft_syote1 = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_fft1)
-        suoritetaanko_fft_syote1.grid(column=2, row=2, sticky=(W, E))
+        ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=1, row=3, sticky=E)
+        self.suoritetaanko_fft = IntVar(value=0)
+        suoritetaanko_fft_syote = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaanko_fft)
+        suoritetaanko_fft_syote.grid(column=2, row=3, sticky=(W, E))
 
-        ttk.Label(self.ruutu, text="Suoritetaan ifft").grid(column=1, row=3, sticky=E)
-        self.suoritetaanko_ifft1 = IntVar(value=0)
-        suoritetaanko_ifft_syote1 = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_ifft1)
-        suoritetaanko_ifft_syote1.grid(column=2, row=3, sticky=(W, E))
+        ttk.Label(self.ruutu, text="Suoritetaan ifft").grid(column=1, row=4, sticky=E)
+        self.suoritetaanko_ifft = IntVar(value=0)
+        suoritetaanko_ifft_syote = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaanko_ifft)
+        suoritetaanko_ifft_syote.grid(column=2, row=4, sticky=(W, E))
 
         self.algoritmiToteutus1 = IntVar(value=1)
-        ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(column=1, row=4, sticky=E)
+        ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(column=1, row=2, sticky=E)
         radio10 = ttk.Radiobutton(self.ruutu, text="oma",
                                 variable=self.algoritmiToteutus1,
                                 value=0
                                 )
-        radio10.grid(column=2, row=4, sticky=W)
+        radio10.grid(column=2, row=2, sticky=W)
         radio11 = ttk.Radiobutton(self.ruutu, text="SciPy.IO",
                                 variable=self.algoritmiToteutus1,
                                 value=1
                                 )
-        radio11.grid(column=3, row=4, sticky=W)
+        radio11.grid(column=3, row=2, sticky=W)
         radio11.invoke()
         #------------------
 
@@ -156,34 +156,26 @@ class vertailuruutu:
             command=lambda: self.valitse_tiedosto(sijainti=self.tiedosto2, teksti=tiedosto_teksti2))
         tiedosto_syote2.grid(column=7, row=1, sticky=(W, E))
         
-        ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=6, row=2, sticky=E)
-        self.suoritetaanko_fft2 = IntVar(value=0)
-        suoritetaanko_fft_syote2 = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_fft2)
-        suoritetaanko_fft_syote2.grid(column=7, row=2, sticky=(W, E))
-
-        ttk.Label(self.ruutu, text="Suoritetaan ifft").grid(column=6, row=3, sticky=E)
-        self.suoritetaanko_ifft2 = IntVar(value=0)
-        suoritetaanko_ifft_syote2 = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_ifft2)
-        suoritetaanko_ifft_syote2.grid(column=7, row=3, sticky=(W, E))
-
         self.algoritmiToteutus2 = IntVar(value=1)
-        ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(column=6, row=4, sticky=E)
+        ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(column=6, row=2, sticky=E)
         radio20 = ttk.Radiobutton(self.ruutu, text="oma",
                                 variable=self.algoritmiToteutus2,
                                 value=0
                                 )
-        radio20.grid(column=7, row=4, sticky=W)
+        radio20.grid(column=7, row=2, sticky=W)
         radio21 = ttk.Radiobutton(self.ruutu, text="SciPy.IO",
                                 variable=self.algoritmiToteutus2,
                                 value=1
                                 )
-        radio21.grid(column=8, row=4, sticky=W)
+        radio21.grid(column=8, row=2, sticky=W)
         radio21.invoke()
         #------------------
 
-        ttk.Button(self.ruutu, text="Prosessoi", command=lambda: self.prosessoi()).grid(column=7, row=5, sticky=W)
+        ttk.Button(
+            self.ruutu,
+            text="Prosessoi",
+            command=lambda: self.prosessoi()
+            ).grid(column=2, row=5, sticky=W)
 
         #------------------kuvaajan piirtäminen
         kuvaaja = Figure(figsize = (10, 3), dpi = 100)
