@@ -48,10 +48,10 @@ def _iFFT(data):
         parilliset = _iFFT(data[::2])
         parittomat = _iFFT(data[1::2])
 
-        yksikkojuuret = np.exp(2j*np.pi*np.arange(pituus)/ pituus)
+        yksikkojuuret = np.exp(2j*np.pi*np.arange(pituus)/pituus)
         yksikkojuuretJaettu=np.array_split(yksikkojuuret, 2)
 
-        muunnos = np.concatenate([parilliset+yksikkojuuretJaettu[0]*parittomat, parilliset+yksikkojuuretJaettu[1]*parittomat])
+        muunnos = np.concatenate([(parilliset+yksikkojuuretJaettu[0]*parittomat)/2, (parilliset+yksikkojuuretJaettu[1]*parittomat)/2])
         
         return muunnos
 
