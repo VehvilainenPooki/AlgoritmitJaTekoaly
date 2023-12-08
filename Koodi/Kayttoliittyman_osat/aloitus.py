@@ -19,6 +19,9 @@ class aloitusruutu:
         ohjeLinkki.bind(
             "<Button-1>",
             lambda l: self.kayttoOhje())
+        
+        for lapsi in self.ruutu.winfo_children(): 
+            lapsi.grid_configure(padx=50, pady=5)
     
     def vaihda_ruutuun(self):
         self.ruutu.tkraise()
