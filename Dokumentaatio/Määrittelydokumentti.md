@@ -13,7 +13,7 @@ Koodin dokumentointi toteutetaan Python DocString:llä.
 Fast Fourier Transform(FFT) On tehokas menetelmä signaalinprosessointiin ja Cooley-Tukeyn algoritmi on yleisin FFT algoritmi.
 
 ## Ohjelman syötteet ja tulokset
-Ohjelmalle annetaan äänitiedosto ja kohinanpoistotaso. Se palauttaa prosessoidun äänitiedoston, jossa on vähennetty taustakohinaa. 
+Ohjelma ottaa syötteenä .wav tiedostojan ja tuloksena palauttaa muokattuja .wav tiedostoja. Ohjelman Toiminnasta tarkemmin [käyttöohje dokumentissa](https://github.com/VehvilainenPooki/AlgoritmitJaTekoaly/blob/main/Dokumentaatio/K%C3%A4ytt%C3%B6ohje.md).
 
 ## Kurssin hallinnallisia tietoja
 ### Opinto-ohjelma: Tietojenkäsittelytieteen kandidaatti (TKT)
