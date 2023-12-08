@@ -1,14 +1,12 @@
+from os import getcwd as cwd
+
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 
-from os import getcwd as cwd
-
-
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
 NavigationToolbar2Tk) 
-
 
 from Aanenprosessointi_osat import tiedostojenhallinta, algoritmi
 
@@ -69,7 +67,6 @@ class kuvaajaruutu:
         for lapsi in self.ruutu.winfo_children(): 
             lapsi.grid_configure(padx=5, pady=5)
 
-
     def valitse_tiedosto(self, sijainti, teksti):
         dir = cwd() + "/Syotteet/"
         tiedosto = filedialog.askopenfilename(initialdir=dir, filetypes=[('Audio',['*.wav', '*.mp3'])])
@@ -81,24 +78,23 @@ class kuvaajaruutu:
         teksti.config(text=tiedosto)
 
     def prosessoi(self):
-        if self.algoritmiToteutus.get() == 0:
-            omaToteutus = True
-        else:
-            omaToteutus = False
-        data = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto.get())
-        data = data[1]
-        if self.suoritetaanko_fft.get() == 1:
-            data = algoritmi.suorita_FFT_datalle(data, omaToteutus)
+        if self.tiedosto.get() != "":
+            if self.algoritmiToteutus.get() == 0:
+                omaToteutus = True
+            else:
+                omaToteutus = False
+            data = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto.get())
+            data = data[1]
+            if self.suoritetaanko_fft.get() == 1:
+                data = algoritmi.suorita_FFT_datalle(data, omaToteutus)
 
-        if self.suoritetaanko_ifft.get() == 1:
-            data = algoritmi.suorita_iFFT_datalle(data, omaToteutus)
+            if self.suoritetaanko_ifft.get() == 1:
+                data = algoritmi.suorita_iFFT_datalle(data, omaToteutus)
 
-        self.taulu.clear()
-        self.taulu.plot(data,'r')
-        self.kuvaajaTk.draw()
-        print('prosessoitu')
-        
-    
+            self.taulu.clear()
+            self.taulu.plot(data,'r')
+            self.kuvaajaTk.draw()
+
     def vaihda_ruutuun(self):
         self.ruutu.tkraise()
 
@@ -203,38 +199,34 @@ class vertailuruutu:
         teksti.config(text=tiedosto)
 
     def prosessoi(self):
-        print("Aloitetaan prosessointi")
-        if self.algoritmiToteutus1.get() == 0:
-            omaToteutus1 = True
-        else:
-            omaToteutus1 = False
-        
-        if self.algoritmiToteutus2.get() == 0:
-            omaToteutus2 = True
-        else:
-            omaToteutus2 = False
+        if self.tiedosto1.get() != "" and self.tiedosto2.get() != "":
+            if self.algoritmiToteutus1.get() == 0:
+                omaToteutus1 = True
+            else:
+                omaToteutus1 = False
+            
+            if self.algoritmiToteutus2.get() == 0:
+                omaToteutus2 = True
+            else:
+                omaToteutus2 = False
 
-        data1 = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto1.get())
-        data1 = data1[1]
-        data2 = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto2.get())
-        data2 = data2[1]
+            data1 = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto1.get())
+            data1 = data1[1]
+            data2 = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto2.get())
+            data2 = data2[1]
 
-        if self.suoritetaanko_fft.get() == 1:
-            data1 = algoritmi.suorita_FFT_datalle(data1, omaToteutus1)
-            data2 = algoritmi.suorita_FFT_datalle(data2, omaToteutus2)
-            print("fft prosessointu")
+            if self.suoritetaanko_fft.get() == 1:
+                data1 = algoritmi.suorita_FFT_datalle(data1, omaToteutus1)
+                data2 = algoritmi.suorita_FFT_datalle(data2, omaToteutus2)
+            if self.suoritetaanko_ifft.get() == 1:
+                data1 = algoritmi.suorita_iFFT_datalle(data1, omaToteutus1)
+                data2 = algoritmi.suorita_iFFT_datalle(data2, omaToteutus2)
 
+            self.taulu.clear()
+            self.taulu.plot(data1,'r', alpha=0.5)
+            self.taulu.plot(data2,'b', alpha=0.5)
 
-        if self.suoritetaanko_ifft.get() == 1:
-            data1 = algoritmi.suorita_iFFT_datalle(data1, omaToteutus1)
-            data2 = algoritmi.suorita_iFFT_datalle(data2, omaToteutus2)
-            print("ifft prosessointu")
-        self.taulu.clear()
-        self.taulu.plot(data1,'r', alpha=0.5)
-        self.taulu.plot(data2,'b', alpha=0.5)
+            self.kuvaajaTk.draw()
 
-        self.kuvaajaTk.draw()
-        print('Valmis')
-   
     def vaihda_ruutuun(self):
         self.ruutu.tkraise()
