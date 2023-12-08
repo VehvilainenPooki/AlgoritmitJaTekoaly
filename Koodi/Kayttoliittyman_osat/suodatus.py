@@ -299,9 +299,7 @@ class voimakkaimmanpoisto:
             self.nykyinenData = data[1]
             self.nykyinenData = algoritmi.suorita_FFT_datalle(self.nykyinenData, omaToteutus)
 
-            self.taulu.clear()
-            self.taulu.plot(self.nykyinenData[:int(len(self.nykyinenData)/2)],'r')
-            self.kuvaajaTk.draw()
+            self._paivita_kuvaaja()
 
     def _tallenna_tiedosto(self):
         if self.nykyinenData is not None:
