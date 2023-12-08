@@ -216,7 +216,7 @@ class voimakkaimmanpoisto:
         syotteenTarkistaja = (self.ruutu.register(self._tarkista_syote_on_numero), '%P')
         ttk.Label(self.ruutu, text="Poistettava kohta:").grid(column=1, row=6, sticky=E)
         self.kohta = StringVar()
-        ttk.Label(self.ruutu, textvariable=self.kohta).grid(column=2, row=6, sticky=E)
+        ttk.Label(self.ruutu, textvariable=self.kohta).grid(column=2, row=6, sticky=W)
 
         ttk.Label(self.ruutu, text="Valitse poiston leveys:").grid(column=1, row=7, sticky=E)
         self.leveys = StringVar(value=1)
@@ -279,35 +279,38 @@ class voimakkaimmanpoisto:
             self.kuvaajaTk.draw()
 
     def _poista_kohta(self):
-        self.nykyinenData = muokkaus.poista_signaali(
-            fftData=self.nykyinenData,
-            poistoKohta=int(self.kohta.get()),
-            poistoLeveys=int(self.leveys.get())
-            )
-        self._paivita_kuvaaja()
+        if self.nykyinenData is not None:
+            self.nykyinenData = muokkaus.poista_signaali(
+                fftData=self.nykyinenData,
+                poistoKohta=int(self.kohta.get()),
+                poistoLeveys=int(self.leveys.get())
+                )
+            self._paivita_kuvaaja()
 
     def _hae_data(self):
-        if self.algoritmiToteutus.get() == 0:
-            omaToteutus = True
-        else:
-            omaToteutus = False
-        data = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto.get())
-        self.otostiheys = data[0]
-        self.nykyinenData = data[1]
-        self.nykyinenData = algoritmi.suorita_FFT_datalle(self.nykyinenData, omaToteutus)
+        if self.tiedosto.get() != "":
+            if self.algoritmiToteutus.get() == 0:
+                omaToteutus = True
+            else:
+                omaToteutus = False
+            data = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto.get())
+            self.otostiheys = data[0]
+            self.nykyinenData = data[1]
+            self.nykyinenData = algoritmi.suorita_FFT_datalle(self.nykyinenData, omaToteutus)
 
-        self.taulu.clear()
-        self.taulu.plot(self.nykyinenData[:int(len(self.nykyinenData)/2)],'r')
-        self.kuvaajaTk.draw()
+            self.taulu.clear()
+            self.taulu.plot(self.nykyinenData[:int(len(self.nykyinenData)/2)],'r')
+            self.kuvaajaTk.draw()
 
     def _tallenna_tiedosto(self):
-        dir = cwd() + "/Tulosteet/"
-        polku = filedialog.asksaveasfilename(initialdir=dir, filetypes=[('Audio',['*.wav'])])
-        tiedostojenhallinta.tallenna_tiedosto(
-            polku, 
-            algoritmi.suorita_iFFT_datalle(self.nykyinenData), 
-            self.otostiheys
-            )
+        if self.nykyinenData is not None:
+            dir = cwd() + "/Tulosteet/"
+            polku = filedialog.asksaveasfilename(initialdir=dir, filetypes=[('Audio',['*.wav'])])
+            tiedostojenhallinta.tallenna_tiedosto(
+                polku, 
+                algoritmi.suorita_iFFT_datalle(self.nykyinenData), 
+                self.otostiheys
+                )
 
     def vaihda_ruutuun(self):
         self.ruutu.tkraise()
