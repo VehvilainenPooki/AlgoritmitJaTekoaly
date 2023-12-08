@@ -1,75 +1,82 @@
-from tkinter import *
+"""
+Käyttöliittymä
 
-from os import getcwd as cwd
+Moduuli on Sovelluksen päämoduuli. Se integroi käyttöliittymän välilehdet.
+"""
+from tkinter import (Tk,Menu)
 
 from Kayttoliittyman_osat import aloitus, visualisointi, suodatus
 
+class Valikko:
+    """
+    Valikko
 
-class valikko:
+    Luokka luo yläreunan valikon käyttöliittymälle.
+    """
     def __init__(self, rajapinta, ikkuna=Tk):
         self.rajapinta = rajapinta
         self.valikko = Menu(ikkuna)
         ikkuna["menu"] = self.valikko
 
-        self.visualisointi_valikko = Menu(self.valikko)
-        self.suodatus_valikko = Menu(self.valikko)
+        self.visualisointiValikko = Menu(self.valikko)
+        self.suodatusValikko = Menu(self.valikko)
 
         self.valikko.add_command(
             label="aloitus", command=lambda: self.rajapinta.vaihda_ruutua("aloitus")
         )
 
-        self.valikko.add_cascade(menu=self.suodatus_valikko, label="suodatus")
-        self.suodatus_valikko.add_command(
+        self.valikko.add_cascade(menu=self.suodatusValikko, label="suodatus")
+        self.suodatusValikko.add_command(
             label="voimakkain taajuus",
             command=lambda: self.rajapinta.vaihda_ruutua("voimakkain taajuus"),
         )
-        self.suodatus_valikko.add_command(
+        self.suodatusValikko.add_command(
             label="valitse taajuus",
             command=lambda: self.rajapinta.vaihda_ruutua("valitse taajuus"),
         )
 
-        self.valikko.add_cascade(menu=self.visualisointi_valikko, label="visualisointi")
-        self.visualisointi_valikko.add_command(
+        self.valikko.add_cascade(menu=self.visualisointiValikko, label="visualisointi")
+        self.visualisointiValikko.add_command(
             label="kuvaaja", command=lambda: self.rajapinta.vaihda_ruutua("kuvaaja")
         )
-        self.visualisointi_valikko.add_command(
+        self.visualisointiValikko.add_command(
             label="vertaile", command=lambda: self.rajapinta.vaihda_ruutua("vertaile")
         )
 
 
-class kayttoliittyma:
+class Kayttoliittyma:
     """
     Käyttöliittymä
 
     Toteuttaa kohinanpoistosovellukselle käyttöliittymän, jolla sitä käytetään.
     """
 
-    def __init__(self, ikkuna):
+    def __init__(self):
+        ikkuna = Tk()
+        ikkuna.option_add("*tearOff", False)
         ikkuna.title("Kohinanpoistotyökalu")
-        self.taajuuden_poisto = suodatus.taajuudenpoisto(ikkuna)
-        self.voimakkaimman_poisto = suodatus.voimakkaimmanpoisto(ikkuna)
-        self.kuvaaja_ruutu = visualisointi.kuvaajaruutu(ikkuna)
-        self.vertailu_ruutu = visualisointi.vertailuruutu(ikkuna)
-        self.aloitus_ruutu = aloitus.aloitusruutu(ikkuna)
-        self.valikko = valikko(self, ikkuna)
+        self.taajuudenpoisto = suodatus.Taajuudenpoisto(ikkuna)
+        self.voimakkaimmanpoisto = suodatus.Voimakkaimmanpoisto(ikkuna)
+        self.kuvaajaruutu = visualisointi.Kuvaajaruutu(ikkuna)
+        self.vertailuruutu = visualisointi.Vertailuruutu(ikkuna)
+        self.aloitusruutu = aloitus.Aloitusruutu(ikkuna)
+        self.valikko = Valikko(self, ikkuna)
+        ikkuna.mainloop()
 
-    def vaihda_ruutua(self, vaihdettavan_nimi):
-        if vaihdettavan_nimi == "aloitus":
-            self.aloitus_ruutu.vaihda_ruutuun()
-        elif vaihdettavan_nimi == "valitse taajuus":
-            self.taajuuden_poisto.vaihda_ruutuun()
-        elif vaihdettavan_nimi == "voimakkain taajuus":
-            self.voimakkaimman_poisto.vaihda_ruutuun()
-        elif vaihdettavan_nimi == "kuvaaja":
-            self.kuvaaja_ruutu.vaihda_ruutuun()
-        elif vaihdettavan_nimi == "vertaile":
-            self.vertailu_ruutu.vaihda_ruutuun()
+    def vaihda_ruutua(self, vaihdettavanNimi):
+        if vaihdettavanNimi == "aloitus":
+            self.aloitusruutu.vaihda_ruutuun()
+        elif vaihdettavanNimi == "valitse taajuus":
+            self.taajuudenpoisto.vaihda_ruutuun()
+        elif vaihdettavanNimi == "voimakkain taajuus":
+            self.voimakkaimmanpoisto.vaihda_ruutuun()
+        elif vaihdettavanNimi == "kuvaaja":
+            self.kuvaajaruutu.vaihda_ruutuun()
+        elif vaihdettavanNimi == "vertaile":
+            self.vertailuruutu.vaihda_ruutuun()
         else:
-            self.aloitus_ruutu.vaihda_ruutuun()
+            self.aloitusruutu.vaihda_ruutuun()
 
 
 if __name__ == "__main__":
-    ikkuna = Tk()
-    ikkuna.option_add("*tearOff", False)
-    kayttoliittyma(ikkuna)
-    ikkuna.mainloop()
+    Kayttoliittyma()

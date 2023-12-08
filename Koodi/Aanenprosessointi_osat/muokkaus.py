@@ -1,22 +1,6 @@
 import numpy as np
 
-
-def poista_voimakkain_signaali(fftData=np.array, poistoLeveys=int):
-    """
-    Poistaa FFT prosessoidusta yksi-ulotteisesta datasta voimakkaimman signaalin.
-
-    Muuttujat:
-    fftData = fft:llä prosessoitu äänidata
-    poistoLeveys = Kuinka monta otosta poistetaan voimakkaimman signaalin kummaltakin puolelta
-
-    : Palauttaa prosessoidun datan
-    """
-    data = fftData.copy()
-    voimakkainKohta = _voimakkain_signaali(data)
-    return poista_signaali(data, voimakkainKohta, poistoLeveys)
-
-
-def _voimakkain_signaali(fftData=np.array):
+def voimakkain_signaali(fftData=np.array):
     """
     Etsii fft datasta voimakkaaimman data pisteen ja palauttaa sen indexin
     """
@@ -33,7 +17,8 @@ def _voimakkain_signaali(fftData=np.array):
 
 def poista_signaali(fftData=np.array, poistoKohta=int, poistoLeveys=int):
     """
-    Asettaa <poistoKohta> muuttujan kohdan ympäriltä <poistoLeveys> muuttujan kokoisen välin nollaksi
+    Asettaa <poistoKohta> muuttujan kohdan ympäriltä
+    <poistoLeveys> muuttujan kokoisen välin nollaksi.
 
     Muuttujat:
     fftData = fft prosessoitu äänidata
@@ -45,7 +30,7 @@ def poista_signaali(fftData=np.array, poistoKohta=int, poistoLeveys=int):
     datanPituus = len(fftData) - 1
     for i in range(poistoLeveys * 2 + 1):
         kohta = poistoKohta + i - poistoLeveys
-        if datanPituus / 2 > kohta and -1 < kohta:
+        if datanPituus / 2 > kohta > -1:
             fftData[kohta] = 0 + 0j
             fftData[datanPituus - kohta] = 0 + 0j
 

@@ -1,6 +1,6 @@
 from os import getcwd as cwd
 
-from tkinter import *
+from tkinter import (Tk, N, W, S, E, StringVar, IntVar, )
 from tkinter import ttk
 from tkinter import filedialog
 
@@ -12,7 +12,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from Aanenprosessointi_osat import algoritmi, tiedostojenhallinta, muokkaus
 
 
-class taajuudenpoisto:
+class Taajuudenpoisto:
     def __init__(self, ikkuna=Tk):
         self.nykyinenData = None
 
@@ -21,17 +21,17 @@ class taajuudenpoisto:
 
         ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=1, row=1, sticky=E)
         self.tiedosto = StringVar()
-        tiedosto_teksti = ttk.Label(self.ruutu, text="")
-        tiedosto_teksti.grid(column=3, row=1, sticky=E)
+        tiedostoTeksti = ttk.Label(self.ruutu, text="")
+        tiedostoTeksti.grid(column=3, row=1, sticky=E)
 
-        tiedosto_syote = ttk.Button(
+        tiedostoSyote = ttk.Button(
             self.ruutu,
             text="Selaa:",
             command=lambda: self._valitse_tiedosto(
-                sijainti=self.tiedosto, teksti=tiedosto_teksti
+                sijainti=self.tiedosto, teksti=tiedostoTeksti
             ),
         )
-        tiedosto_syote.grid(column=2, row=1, sticky=(W, E))
+        tiedostoSyote.grid(column=2, row=1, sticky=(W, E))
 
         self.algoritmiToteutus = IntVar(value=1)
         ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(
@@ -103,13 +103,13 @@ class taajuudenpoisto:
         for lapsi in self.ruutu.winfo_children():
             lapsi.grid_configure(padx=5, pady=5)
 
-        tiedosto_syote.focus()
+        tiedostoSyote.focus()
 
     # TODO siirrä tiedostojenhallinta.py moduuliin _valitse_tiedosto
     def _valitse_tiedosto(self, sijainti, teksti):
-        dir = cwd() + "/Syotteet/"
+        directory = cwd() + "/Syotteet/"
         tiedosto = filedialog.askopenfilename(
-            initialdir=dir, filetypes=[("Audio", ["*.wav"])]
+            initialdir=directory, filetypes=[("Audio", ["*.wav"])]
         )
         sijainti.set(tiedosto)
         i = tiedosto.rfind("/")
@@ -146,14 +146,11 @@ class taajuudenpoisto:
 
     def _hae_data(self):
         if self.tiedosto.get() != "":
-            if self.algoritmiToteutus.get() == 0:
-                omaToteutus = True
-            else:
-                omaToteutus = False
+            omaToteutus = self.algoritmiToteutus.get() == 0
             data = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto.get())
             self.otostiheys = data[0]
             self.nykyinenData = data[1]
-            self.nykyinenData = algoritmi.suorita_FFT_datalle(
+            self.nykyinenData = algoritmi.suorita_fft_datalle(
                 self.nykyinenData, omaToteutus
             )
 
@@ -161,13 +158,13 @@ class taajuudenpoisto:
 
     def _tallenna_tiedosto(self):
         if self.nykyinenData is not None:
-            dir = cwd() + "/Tulosteet/"
+            directory = cwd() + "/Tulosteet/"
             polku = filedialog.asksaveasfilename(
-                initialdir=dir, filetypes=[("Audio", ["*.wav"])]
+                initialdir=directory, filetypes=[("Audio", ["*.wav"])]
             )
             tiedostojenhallinta.tallenna_tiedosto(
                 polku,
-                algoritmi.suorita_iFFT_datalle(self.nykyinenData),
+                algoritmi.suorita_ifft_datalle(self.nykyinenData),
                 self.otostiheys,
             )
 
@@ -175,7 +172,7 @@ class taajuudenpoisto:
         self.ruutu.tkraise()
 
 
-class voimakkaimmanpoisto:
+class Voimakkaimmanpoisto:
     def __init__(self, ikkuna=Tk):
         self.nykyinenData = None
 
@@ -184,17 +181,17 @@ class voimakkaimmanpoisto:
 
         ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=1, row=1, sticky=E)
         self.tiedosto = StringVar()
-        tiedosto_teksti = ttk.Label(self.ruutu, text="")
-        tiedosto_teksti.grid(column=3, row=1, sticky=E)
+        tiedostoTeksti = ttk.Label(self.ruutu, text="")
+        tiedostoTeksti.grid(column=3, row=1, sticky=E)
 
-        tiedosto_syote = ttk.Button(
+        tiedostoSyote = ttk.Button(
             self.ruutu,
             text="Selaa:",
             command=lambda: self._valitse_tiedosto(
-                sijainti=self.tiedosto, teksti=tiedosto_teksti
+                sijainti=self.tiedosto, teksti=tiedostoTeksti
             ),
         )
-        tiedosto_syote.grid(column=2, row=1, sticky=(W, E))
+        tiedostoSyote.grid(column=2, row=1, sticky=(W, E))
 
         self.algoritmiToteutus = IntVar(value=1)
         ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(
@@ -259,13 +256,13 @@ class voimakkaimmanpoisto:
         for lapsi in self.ruutu.winfo_children():
             lapsi.grid_configure(padx=5, pady=5)
 
-        tiedosto_syote.focus()
+        tiedostoSyote.focus()
 
     # TODO siirrä tiedostojenhallinta.py moduuliin _valitse_tiedosto
     def _valitse_tiedosto(self, sijainti, teksti):
-        dir = cwd() + "/Syotteet/"
+        directory = cwd() + "/Syotteet/"
         tiedosto = filedialog.askopenfilename(
-            initialdir=dir, filetypes=[("Audio", ["*.wav"])]
+            initialdir=directory, filetypes=[("Audio", ["*.wav"])]
         )
         sijainti.set(tiedosto)
         i = tiedosto.rfind("/")
@@ -283,7 +280,7 @@ class voimakkaimmanpoisto:
             self.taulu.plot(
                 abs(self.nykyinenData[: int(len(self.nykyinenData) / 2)]), "r"
             )
-            self.kohta.set(muokkaus._voimakkain_signaali(self.nykyinenData))
+            self.kohta.set(muokkaus.voimakkain_signaali(self.nykyinenData))
             self.taulu.axvline(x=int(self.kohta.get())).set_color("b")
             relatiivinenLeveysMin = int(self.kohta.get()) - int(self.leveys.get())
             relatiivinenLeveysMax = int(self.kohta.get()) + int(self.leveys.get())
@@ -303,14 +300,11 @@ class voimakkaimmanpoisto:
 
     def _hae_data(self):
         if self.tiedosto.get() != "":
-            if self.algoritmiToteutus.get() == 0:
-                omaToteutus = True
-            else:
-                omaToteutus = False
+            omaToteutus = self.algoritmiToteutus.get() == 0
             data = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto.get())
             self.otostiheys = data[0]
             self.nykyinenData = data[1]
-            self.nykyinenData = algoritmi.suorita_FFT_datalle(
+            self.nykyinenData = algoritmi.suorita_fft_datalle(
                 self.nykyinenData, omaToteutus
             )
 
@@ -318,13 +312,13 @@ class voimakkaimmanpoisto:
 
     def _tallenna_tiedosto(self):
         if self.nykyinenData is not None:
-            dir = cwd() + "/Tulosteet/"
+            directory = cwd() + "/Tulosteet/"
             polku = filedialog.asksaveasfilename(
-                initialdir=dir, filetypes=[("Audio", ["*.wav"])]
+                initialdir=directory, filetypes=[("Audio", ["*.wav"])]
             )
             tiedostojenhallinta.tallenna_tiedosto(
                 polku,
-                algoritmi.suorita_iFFT_datalle(self.nykyinenData),
+                algoritmi.suorita_ifft_datalle(self.nykyinenData),
                 self.otostiheys,
             )
 

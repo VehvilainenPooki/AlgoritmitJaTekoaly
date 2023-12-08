@@ -1,6 +1,6 @@
 from os import getcwd as cwd
 
-from tkinter import *
+from tkinter import (Tk, N, W, S, E, IntVar, StringVar)
 from tkinter import ttk
 from tkinter import filedialog
 
@@ -10,7 +10,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from Aanenprosessointi_osat import tiedostojenhallinta, algoritmi
 
 
-class kuvaajaruutu:
+class Kuvaajaruutu:
     def __init__(self, ikkuna=Tk):
         self.ikkuna = ikkuna
         self.ruutu = ttk.Frame(ikkuna)
@@ -18,30 +18,30 @@ class kuvaajaruutu:
 
         ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=1, row=1, sticky=E)
         self.tiedosto = StringVar()
-        tiedosto_teksti = ttk.Label(self.ruutu, text="")
-        tiedosto_teksti.grid(column=3, row=1, sticky=E)
-        tiedosto_syote = ttk.Button(
+        tiedostoTeksti = ttk.Label(self.ruutu, text="")
+        tiedostoTeksti.grid(column=3, row=1, sticky=E)
+        tiedostoSyote = ttk.Button(
             self.ruutu,
             text="Selaa:",
             command=lambda: self.valitse_tiedosto(
-                sijainti=self.tiedosto, teksti=tiedosto_teksti
+                sijainti=self.tiedosto, teksti=tiedostoTeksti
             ),
         )
-        tiedosto_syote.grid(column=2, row=1, sticky=(W, E))
+        tiedostoSyote.grid(column=2, row=1, sticky=(W, E))
 
         ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=1, row=2, sticky=E)
-        self.suoritetaanko_fft = IntVar(value=0)
-        suoritetaanko_fft_syote = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_fft
+        self.suoritetaankoFFT = IntVar(value=0)
+        suoritetaankoFFTsyote = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaankoFFT
         )
-        suoritetaanko_fft_syote.grid(column=2, row=2, sticky=(W, E))
+        suoritetaankoFFTsyote.grid(column=2, row=2, sticky=(W, E))
 
         ttk.Label(self.ruutu, text="Suoritetaan ifft").grid(column=1, row=3, sticky=E)
-        self.suoritetaanko_ifft = IntVar(value=0)
-        suoritetaanko_ifft_syote = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_ifft
+        self.suoritetaankoIFFT = IntVar(value=0)
+        suoritetaankoIFFTsyote = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaankoIFFT
         )
-        suoritetaanko_ifft_syote.grid(column=2, row=3, sticky=(W, E))
+        suoritetaankoIFFTsyote.grid(column=2, row=3, sticky=(W, E))
 
         self.algoritmiToteutus = IntVar(value=1)
         ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(
@@ -75,9 +75,9 @@ class kuvaajaruutu:
             lapsi.grid_configure(padx=5, pady=5)
 
     def valitse_tiedosto(self, sijainti, teksti):
-        dir = cwd() + "/Syotteet/"
+        directory = cwd() + "/Syotteet/"
         tiedosto = filedialog.askopenfilename(
-            initialdir=dir, filetypes=[("Audio", ["*.wav", "*.mp3"])]
+            initialdir=directory, filetypes=[("Audio", ["*.wav", "*.mp3"])]
         )
         sijainti.set(tiedosto)
         i = tiedosto.rfind("/")
@@ -88,17 +88,14 @@ class kuvaajaruutu:
 
     def prosessoi(self):
         if self.tiedosto.get() != "":
-            if self.algoritmiToteutus.get() == 0:
-                omaToteutus = True
-            else:
-                omaToteutus = False
+            omaToteutus = self.algoritmiToteutus.get() == 0
             data = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto.get())
             data = data[1]
-            if self.suoritetaanko_fft.get() == 1:
-                data = algoritmi.suorita_FFT_datalle(data, omaToteutus)
+            if self.suoritetaankoFFT.get() == 1:
+                data = algoritmi.suorita_fft_datalle(data, omaToteutus)
 
-            if self.suoritetaanko_ifft.get() == 1:
-                data = algoritmi.suorita_iFFT_datalle(data, omaToteutus)
+            if self.suoritetaankoIFFT.get() == 1:
+                data = algoritmi.suorita_ifft_datalle(data, omaToteutus)
 
             self.taulu.clear()
             self.taulu.plot(data, "r")
@@ -108,7 +105,7 @@ class kuvaajaruutu:
         self.ruutu.tkraise()
 
 
-class vertailuruutu:
+class Vertailuruutu:
     def __init__(self, ikkuna=Tk):
         self.ruutu = ttk.Frame(ikkuna)
         self.ruutu.grid(column=0, row=0, sticky=(N, W, E, S))
@@ -116,30 +113,30 @@ class vertailuruutu:
         # ------------------tiedosto1 valinta
         ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=1, row=1, sticky=E)
         self.tiedosto1 = StringVar()
-        tiedosto_teksti1 = ttk.Label(self.ruutu, text="")
-        tiedosto_teksti1.grid(column=3, row=1, sticky=E)
-        tiedosto_syote1 = ttk.Button(
+        tiedostoTeksti1 = ttk.Label(self.ruutu, text="")
+        tiedostoTeksti1.grid(column=3, row=1, sticky=E)
+        tiedostoSyote1 = ttk.Button(
             self.ruutu,
             text="Selaa:",
             command=lambda: self.valitse_tiedosto(
-                sijainti=self.tiedosto1, teksti=tiedosto_teksti1
+                sijainti=self.tiedosto1, teksti=tiedostoTeksti1
             ),
         )
-        tiedosto_syote1.grid(column=2, row=1, sticky=(W, E))
+        tiedostoSyote1.grid(column=2, row=1, sticky=(W, E))
 
         ttk.Label(self.ruutu, text="Suoritetaan fft").grid(column=1, row=3, sticky=E)
-        self.suoritetaanko_fft = IntVar(value=0)
-        suoritetaanko_fft_syote = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_fft
+        self.suoritetaankoFFT = IntVar(value=0)
+        suoritetaankoFFTsyote = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaankoFFT
         )
-        suoritetaanko_fft_syote.grid(column=2, row=3, sticky=(W, E))
+        suoritetaankoFFTsyote.grid(column=2, row=3, sticky=(W, E))
 
         ttk.Label(self.ruutu, text="Suoritetaan ifft").grid(column=1, row=4, sticky=E)
-        self.suoritetaanko_ifft = IntVar(value=0)
-        suoritetaanko_ifft_syote = ttk.Checkbutton(
-            self.ruutu, width=7, variable=self.suoritetaanko_ifft
+        self.suoritetaankoIFFT = IntVar(value=0)
+        suoritetaankoIFFTsyote = ttk.Checkbutton(
+            self.ruutu, width=7, variable=self.suoritetaankoIFFT
         )
-        suoritetaanko_ifft_syote.grid(column=2, row=4, sticky=(W, E))
+        suoritetaankoIFFTsyote.grid(column=2, row=4, sticky=(W, E))
 
         self.algoritmiToteutus1 = IntVar(value=1)
         ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(
@@ -159,16 +156,16 @@ class vertailuruutu:
         # ------------------tiedosto2 valinta
         ttk.Label(self.ruutu, text="Valitse tiedosto:").grid(column=6, row=1, sticky=E)
         self.tiedosto2 = StringVar()
-        tiedosto_teksti2 = ttk.Label(self.ruutu, text="")
-        tiedosto_teksti2.grid(column=8, row=1, sticky=E)
-        tiedosto_syote2 = ttk.Button(
+        tiedostoTeksti2 = ttk.Label(self.ruutu, text="")
+        tiedostoTeksti2.grid(column=8, row=1, sticky=E)
+        tiedostoSyote2 = ttk.Button(
             self.ruutu,
             text="Selaa:",
             command=lambda: self.valitse_tiedosto(
-                sijainti=self.tiedosto2, teksti=tiedosto_teksti2
+                sijainti=self.tiedosto2, teksti=tiedostoTeksti2
             ),
         )
-        tiedosto_syote2.grid(column=7, row=1, sticky=(W, E))
+        tiedostoSyote2.grid(column=7, row=1, sticky=(W, E))
 
         self.algoritmiToteutus2 = IntVar(value=1)
         ttk.Label(self.ruutu, text="Valitse algoritmin toteutus:").grid(
@@ -205,9 +202,9 @@ class vertailuruutu:
             lapsi.grid_configure(padx=5, pady=5)
 
     def valitse_tiedosto(self, sijainti, teksti):
-        dir = cwd() + "/Syotteet/"
+        directory = cwd() + "/Syotteet/"
         tiedosto = filedialog.askopenfilename(
-            initialdir=dir, filetypes=[("Audio", ["*.wav", "*.mp3"])]
+            initialdir=directory, filetypes=[("Audio", ["*.wav", "*.mp3"])]
         )
         sijainti.set(tiedosto)
         i = tiedosto.rfind("/")
@@ -218,27 +215,19 @@ class vertailuruutu:
 
     def prosessoi(self):
         if self.tiedosto1.get() != "" and self.tiedosto2.get() != "":
-            if self.algoritmiToteutus1.get() == 0:
-                omaToteutus1 = True
-            else:
-                omaToteutus1 = False
-
-            if self.algoritmiToteutus2.get() == 0:
-                omaToteutus2 = True
-            else:
-                omaToteutus2 = False
-
+            omaToteutus1 = self.algoritmiToteutus1.get() == 0
+            omaToteutus2 = self.algoritmiToteutus2.get() == 0
             data1 = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto1.get())
             data1 = data1[1]
             data2 = tiedostojenhallinta.lue_wav_tiedosto(self.tiedosto2.get())
             data2 = data2[1]
 
-            if self.suoritetaanko_fft.get() == 1:
-                data1 = algoritmi.suorita_FFT_datalle(data1, omaToteutus1)
-                data2 = algoritmi.suorita_FFT_datalle(data2, omaToteutus2)
-            if self.suoritetaanko_ifft.get() == 1:
-                data1 = algoritmi.suorita_iFFT_datalle(data1, omaToteutus1)
-                data2 = algoritmi.suorita_iFFT_datalle(data2, omaToteutus2)
+            if self.suoritetaankoFFT.get() == 1:
+                data1 = algoritmi.suorita_fft_datalle(data1, omaToteutus1)
+                data2 = algoritmi.suorita_fft_datalle(data2, omaToteutus2)
+            if self.suoritetaankoIFFT.get() == 1:
+                data1 = algoritmi.suorita_ifft_datalle(data1, omaToteutus1)
+                data2 = algoritmi.suorita_ifft_datalle(data2, omaToteutus2)
 
             self.taulu.clear()
             self.taulu.plot(data1, "r", alpha=0.5)

@@ -1,8 +1,7 @@
-from scipy.io import wavfile
-
-import numpy as np
 import math
+import numpy as np
 
+from scipy.io import wavfile
 
 def _kasvata_data_sopivan_pituiseksi(data):
     """
