@@ -38,6 +38,8 @@ def lue_wav_tiedosto(polku):
 
 
 def tallenna_tiedosto(polku, data, otostiheys):
+    if polku == "":
+        return
     if polku[len(polku) - 4 :] != ".wav":
         polku = polku + ".wav"
     wavfile.write(polku, otostiheys, data.astype(np.int16))

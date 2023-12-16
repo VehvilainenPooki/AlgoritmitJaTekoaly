@@ -200,6 +200,7 @@ Ilmeisesti fft ja ifft skaalaavat dataa taulun pituuden suhteen, joten data pit�
 ### Mik채 j채i ep채selv채ksi tai tuottanut vaikeuksia?
 
 ### Mit채 teen seuraavaksi?
+Virhe havaittu. Kun peruuttaa tiedoston tallentamisen se tallentaa sen kuitenkin.
 
 ### Kuinka paljon k채ytin aikaa projektiin viikolla?
 

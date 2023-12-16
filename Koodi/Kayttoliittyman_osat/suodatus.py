@@ -162,6 +162,8 @@ class Taajuudenpoisto:
             polku = filedialog.asksaveasfilename(
                 initialdir=directory, filetypes=[("Audio", ["*.wav"])]
             )
+            if polku == "":
+                return
             tiedostojenhallinta.tallenna_tiedosto(
                 polku,
                 algoritmi.suorita_ifft_datalle(self.nykyinenData),
@@ -316,6 +318,8 @@ class Voimakkaimmanpoisto:
             polku = filedialog.asksaveasfilename(
                 initialdir=directory, filetypes=[("Audio", ["*.wav"])]
             )
+            if polku == "":
+                return
             tiedostojenhallinta.tallenna_tiedosto(
                 polku,
                 algoritmi.suorita_ifft_datalle(self.nykyinenData),
