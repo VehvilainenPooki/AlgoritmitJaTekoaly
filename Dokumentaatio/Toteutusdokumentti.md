@@ -1,12 +1,12 @@
 # Toteutusdokumentti
 ## Ohjelman yleisrakenne
-Ohjelmalla on graafinen käyttöliittymä, jossa pystyy valita prosessoitava äänitiedosto ja kohinanpoiston taso.
+Ohjelmalla on käyttöliittymä.
+Käyttöliittymässä on:
+- Visualointi työkalu, jolla voi kuvata äänitiedostoja ja niiden FFT muunnettua dataa
+- Prosessointi työkalu, jolla voi poistaa voimakkaiman tai omavalintaisen signaalin datasta.
 
-## Saavutetut aika- ja tilavaativuudet
--
-
-## Puutteet
-Kaikki
+## LLM Käytöstä
+Laajoja kielimalleja ei ole käytetty projektin kehittämisessä.
 
 ## Lähteet
 
