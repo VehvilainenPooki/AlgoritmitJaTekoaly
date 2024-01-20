@@ -1,10 +1,15 @@
 # Käyttöohje
+Tarvitset Python 3.9+ ja Poetry 1.7.1+
+
 1. Lataa repositorio.
-2. Luo python venv repositorion juureen.
-3. aktivoi venv.
-4. asenna requirement.txt.
-5. navigoi Koodi kansioon
-6. Suorita kayttoliittyma.py
+2. Suorita komento:
+```bash
+poetry install
+```
+3. Suorita komento:
+```bash
+poetry run invoke start
+```
 
 # Käyttöliittymä
 ## Valikko
@@ -32,3 +37,6 @@ Voimakkain taajuusruudussa voit nähdä ja poistaa voimakkaimman taajuuden. Täl
 
 #### Valitse taajuus
 Tällä sivulla voi poistaa haluamansa taajuuden.
+
+# Testaus
+Katso [testaus dokumentti](Testausdokumentti.md)
