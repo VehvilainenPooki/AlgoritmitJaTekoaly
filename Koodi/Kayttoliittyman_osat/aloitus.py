@@ -1,4 +1,4 @@
-from tkinter import (Tk, N, E, W, S)
+from tkinter import Tk, N, E, W, S
 from tkinter import ttk
 
 import webbrowser

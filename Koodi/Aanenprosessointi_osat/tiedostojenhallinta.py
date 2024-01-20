@@ -3,6 +3,7 @@ import numpy as np
 
 from scipy.io import wavfile
 
+
 def _kasvata_data_sopivan_pituiseksi(data):
     """
     Tarkistaa, että <data> on muotoa pituus=2^n. Jos ei ole, lisätään dataan 2^n-pituus nollaa.

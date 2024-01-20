@@ -1,6 +1,6 @@
 from os import getcwd as cwd
 
-from tkinter import (Tk, N, W, S, E, IntVar, StringVar)
+from tkinter import Tk, N, W, S, E, IntVar, StringVar
 from tkinter import ttk
 from tkinter import filedialog
 

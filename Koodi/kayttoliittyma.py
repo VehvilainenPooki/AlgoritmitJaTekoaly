@@ -3,9 +3,10 @@ Käyttöliittymä
 
 Moduuli on Sovelluksen päämoduuli. Se integroi käyttöliittymän välilehdet.
 """
-from tkinter import (Tk,Menu)
+from tkinter import Tk, Menu
 
 from Kayttoliittyman_osat import aloitus, visualisointi, suodatus
+
 
 class Valikko:
     """
@@ -13,6 +14,7 @@ class Valikko:
 
     Luokka luo yläreunan valikon käyttöliittymälle.
     """
+
     def __init__(self, rajapinta, ikkuna=Tk):
         self.rajapinta = rajapinta
         self.valikko = Menu(ikkuna)

@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def voimakkain_signaali(fftData=np.array):
     """
     Etsii fft datasta voimakkaaimman data pisteen ja palauttaa sen indexin
