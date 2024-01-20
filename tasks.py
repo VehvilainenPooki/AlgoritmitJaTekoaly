@@ -2,6 +2,8 @@ from invoke import  task
 
 @task
 def start(ctx):
+    print("Siistitään koodia:")
+    ctx.run("black Koodi")
     print("Suoritetaan testejä:")
     ctx.run("pytest Koodi")
     print("Käynnistetään sovellus:")
@@ -9,6 +11,7 @@ def start(ctx):
 
 @task
 def test(ctx):
+    ctx.run("black Koodi")
     ctx.run("pytest Koodi")
 
 @task
@@ -18,4 +21,5 @@ def generateReport(ctx):
 
 @task
 def lint(ctx):
+    ctx.run("black Koodi")
     ctx.run("pylint Koodi")
