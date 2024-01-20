@@ -1,0 +1,13 @@
+# .coveragerc to control coverage.py
+[paths]
+source = Koodi/
+
+[run]
+omit =
+	*__init__*
+	*Test*
+
+[html]
+omit =
+	*__init__*
+	*Test*
